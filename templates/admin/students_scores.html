@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f9fb;
+    padding: 20px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  thead {
+    background-color: #34495e;
+    color: white;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #dcdcdc;
+    font-size: 14px;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tbody tr:hover {
+    background-color: #e1f5fe;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+
+  .btn:hover {
+    background-color: #2980b9;
+  }
+</style>
+
+<h2>Student Scores by Subject</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>KASNEB No</th>
+      <th>Full Name</th>
+      <th>Course</th>
+      <th>Level</th>
+      {% for subject in all_subjects %}
+        <th>{{ subject }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for student in student_rows %}
+    <tr>
+      <td>{{ student.kasneb_no }}</td>
+      <td>{{ student.full_name }}</td>
+      <td>{{ student.course }}</td>
+      <td>{{ student.level }}</td>
+      {% for subject in all_subjects %}
+        <td>{{ student.scores[subject] }}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div style="text-align: center;">
+  <a href="{{ url_for('admin_dashboard') }}" class="btn">← Back to Dashboard</a>
+</div>
+{% endblock %}

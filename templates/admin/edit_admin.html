@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Edit Admin Password</h2>
+
+<form method="POST">
+    <label for="password">New Password:</label><br>
+    <input type="password" name="password" required><br><br>
+    <button type="submit" class="btn btn-success">Update Password</button>
+    <a href="/admin/dashboard" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

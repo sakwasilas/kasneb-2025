@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Quiz Result{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    padding: 20px;
+  }
+
+  .result-card {
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 18px;
+    color: #34495e;
+    margin: 10px 0;
+  }
+
+  strong {
+    color: #2c3e50;
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 25px;
+    text-decoration: none;
+    color: white;
+    background-color: #2980b9;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
+  a:hover {
+    background-color: #3498db;
+  }
+</style>
+
+<div class="result-card">
+  <h2>Quiz Submitted</h2>
+  <p><strong>Total Questions:</strong> {{ total }}</p>
+  <p><strong>Correct Answers:</strong> {{ correct }}</p>
+  <p><strong>Score:</strong> {{ score }}%</p>
+
+  <a href="/student/dashboard">Back to Dashboard</a>
+</div>
+{% endblock %}

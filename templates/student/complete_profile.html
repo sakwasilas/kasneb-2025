@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}Complete Profile{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    padding: 20px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+  }
+
+  form {
+    max-width: 500px;
+    margin: auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #34495e;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  button:hover {
+    background-color: #3498db;
+  }
+</style>
+
+<h2>Complete Your Profile</h2>
+<form method="POST">
+  <label>Full Name:
+    <input type="text" name="full_name" required>
+  </label>
+
+  <label>Course:
+    <input type="text" name="course" required>
+  </label>
+
+  <label>Level:
+    <input type="text" name="level" required>
+  </label>
+
+  <label>KASNEB No:
+    <input type="text" name="kasneb_no" required>
+  </label>
+
+  <button type="submit">Save</button>
+</form>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 0;
+  }
+
+  .form-container {
+    max-width: 500px;
+    margin: 60px auto;
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  h3 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #34495e;
+    font-weight: 600;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+  }
+
+  .button-group {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  button, .back-link {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 5px;
+  }
+
+  button {
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+  }
+
+  button:hover {
+    background-color: #2ecc71;
+  }
+
+  .back-link {
+    background-color: #bdc3c7;
+    color: #2c3e50;
+  }
+
+  .back-link:hover {
+    background-color: #95a5a6;
+  }
+</style>
+
+<div class="form-container">
+  <h3>Add New Student</h3>
+  <form method="POST">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required>
+
+    <label for="password">Password:</label>
+    <input type="text" name="password" id="password" required>
+
+    <div class="button-group">
+      <button type="submit">Add Student</button>
+      <a href="{{ url_for('view_students') }}" class="back-link">Back</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

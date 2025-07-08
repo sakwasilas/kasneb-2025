@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    padding: 20px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+  }
+
+  table {
+    width: 60%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    overflow: hidden;
+  }
+
+  th, td {
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+
+  th {
+    background-color: #2c3e50;
+    color: white;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .btn-secondary {
+    display: inline-block;
+    margin: 30px auto 0;
+    padding: 10px 16px;
+    background-color: #7f8c8d;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  .btn-secondary:hover {
+    background-color: #636e72;
+  }
+
+  .center {
+    text-align: center;
+  }
+</style>
+
+<h2>Total Students Per Course</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Course</th>
+      <th>Total Students</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for course, count in course_counts %}
+    <tr>
+      <td>{{ course }}</td>
+      <td>{{ count }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="center">
+  <a href="/admin/dashboard" class="btn btn-secondary">← Back to Dashboard</a>
+</div>
+{% endblock %}

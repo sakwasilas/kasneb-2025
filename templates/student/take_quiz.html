@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block title %}Take Quiz - {{ quiz.subject }}{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    padding: 20px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+
+  .quiz-meta {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+
+  #timer {
+    font-size: 18px;
+    padding: 6px 10px;
+    background-color: #eafaf1;
+    border-radius: 5px;
+    display: inline-block;
+  }
+
+  form {
+    max-width: 800px;
+    margin: auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  }
+
+  .question {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .question p {
+    font-weight: bold;
+    color: #2c3e50;
+  }
+
+  label {
+    display: block;
+    margin: 6px 0;
+    color: #34495e;
+    padding-left: 10px;
+  }
+
+  input[type="radio"] {
+    margin-right: 8px;
+  }
+
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #3498db;
+  }
+</style>
+
+<h2>{{ quiz.title }}</h2>
+
+<div class="quiz-meta">
+  <p><strong>Course:</strong> {{ quiz.course }} |
+     <strong>Subject:</strong> {{ quiz.subject }}</p>
+  <p><strong>Time Remaining:</strong>
+    <span id="timer" style="color: green; font-weight: bold;">--:--:--</span>
+  </p>
+</div>
+
+<form method="POST" action="{{ url_for('submit_quiz', quiz_id=quiz.id) }}">
+  {% for question in questions %}
+    <div class="question">
+      <p>Q{{ loop.index }}: {{ question.text }}</p>
+      <label><input type="radio" name="q{{ question.id }}" value="A"> A) {{ question.option_a }}</label>
+      <label><input type="radio" name="q{{ question.id }}" value="B"> B) {{ question.option_b }}</label>
+      <label><input type="radio" name="q{{ question.id }}" value="C"> C) {{ question.option_c }}</label>
+      <label><input type="radio" name="q{{ question.id }}" value="D"> D) {{ question.option_d }}</label>
+    </div>
+  {% endfor %}
+  <button type="submit">Submit Quiz</button>
+</form>
+
+<script>
+  const endTime = new Date("{{ end_time }} UTC").getTime();
+
+  function updateTimer() {
+    const now = new Date().getTime();
+    const distance = endTime - now;
+
+    if (distance <= 0) {
+      document.getElementById("timer").innerHTML = "Time's up!";
+      alert("Time is up! Submitting your quiz.");
+      document.querySelector('form').submit();
+      return;
+    }
+
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("timer").innerHTML =
+      String(hours).padStart(2, '0') + ":" +
+      String(minutes).padStart(2, '0') + ":" +
+      String(seconds).padStart(2, '0');
+
+    // Visual warning
+    if (distance < 2 * 60 * 1000) {
+      document.getElementById("timer").style.color = "red";
+    } else if (distance < 5 * 60 * 1000) {
+      document.getElementById("timer").style.color = "orange";
+    } else {
+      document.getElementById("timer").style.color = "green";
+    }
+  }
+
+  updateTimer(); // Run immediately
+  setInterval(updateTimer, 1000);
+</script>
+{% endblock %}

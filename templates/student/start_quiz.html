@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block title %}{{ quiz.subject }} Quiz{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    padding: 20px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+
+  #timer {
+    font-size: 20px;
+    margin-left: 8px;
+  }
+
+  form {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  }
+
+  .question-block {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .question-block p {
+    font-weight: bold;
+    color: #34495e;
+  }
+
+  label {
+    display: block;
+    margin-top: 6px;
+    color: #2c3e50;
+    padding-left: 10px;
+  }
+
+  input[type="radio"] {
+    margin-right: 8px;
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  button:hover {
+    background-color: #3498db;
+  }
+</style>
+
+<h2>{{ quiz.subject }} Quiz</h2>
+<p style="text-align:center;"><strong>Time Remaining: <span id="timer">--:--:--</span></strong></p>
+
+<form method="POST" id="quizForm">
+  {% for q in quiz.questions %}
+    <div class="question-block">
+      <p>Q{{ loop.index }}. {{ q.text }}</p>
+      <label><input type="radio" name="q{{ q.id }}" value="A"> A. {{ q.option_a }}</label>
+      <label><input type="radio" name="q{{ q.id }}" value="B"> B. {{ q.option_b }}</label>
+      <label><input type="radio" name="q{{ q.id }}" value="C"> C. {{ q.option_c }}</label>
+      <label><input type="radio" name="q{{ q.id }}" value="D"> D. {{ q.option_d }}</label>
+    </div>
+  {% endfor %}
+  <button type="submit">Submit Quiz</button>
+</form>
+
+<script>
+  let totalSeconds = {{ quiz.duration }} * 60;
+
+  function formatTime(seconds) {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  function updateTimer() {
+    const timerElement = document.getElementById("timer");
+    
+    if (totalSeconds <= 0) {
+      document.getElementById("quizForm").submit();  // auto-submit
+    } else {
+      timerElement.textContent = formatTime(totalSeconds);
+
+      // Change color based on time remaining
+      if (totalSeconds <= 60) {
+        timerElement.style.color = "red";
+        timerElement.style.fontWeight = "bold";
+      } else if (totalSeconds <= 300) {
+        timerElement.style.color = "orange";
+      } else {
+        timerElement.style.color = "green";
+      }
+
+      totalSeconds--;
+      setTimeout(updateTimer, 1000);
+    }
+  }
+
+  updateTimer();  // start countdown
+</script>
+{% endblock %}

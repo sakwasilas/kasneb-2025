@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}Upload Exam{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    padding: 20px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+  }
+
+  form {
+    max-width: 500px;
+    margin: auto;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #34495e;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #3498db;
+  }
+
+  a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #2980b9;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<h2>Upload Exam</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    <label>Course:</label>
+    <input type="text" name="course" required><br>
+    <label>Subject:</label>
+    <input type="text" name="subject" required><br>
+    <label>Duration (minutes):</label>
+    <input type="number" name="duration" required><br>
+    <label>Select Excel File (.xlsx):</label>
+    <input type="file" name="file" accept=".xlsx" required><br><br>
+    <input type="submit" value="Upload Exam">
+</form>
+
+<a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary" style="margin-top: 20px;">← Back to Dashboard</a>
+{% endblock %}

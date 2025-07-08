@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Edit Student{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+  }
+
+  h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+
+  form {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  }
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #3498db;
+  }
+</style>
+
+<h2>Edit Student Account</h2>
+<form method="POST">
+  <label>Username:</label>
+  <input type="text" name="username" value="{{ student.username }}">
+
+  <label>Password:</label>
+  <input type="text" name="password" value="{{ student.password }}">
+
+  <label>Full Name:</label>
+  <input type="text" name="full_name" value="{{ student.profile.full_name if student.profile else '' }}">
+
+  <label>Course:</label>
+  <input type="text" name="course" value="{{ student.profile.course if student.profile else '' }}">
+
+  <label>Level:</label>
+  <input type="text" name="level" value="{{ student.profile.level if student.profile else '' }}">
+
+  <label>KASNEB No:</label>
+  <input type="text" name="kasneb_no" value="{{ student.profile.kasneb_no if student.profile else '' }}">
+
+  <button type="submit">Update</button>
+</form>
+
+ <br>
+   <center><a href="{{ url_for('admin_dashboard') }}" class="btn">← Back to Dashboard</a></center>
+{% endblock %}

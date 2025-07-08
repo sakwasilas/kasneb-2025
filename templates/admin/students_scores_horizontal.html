@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Scores Horizontal</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .filter-form {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Students Scores (Horizontal View)</h2>
+
+    <form class="filter-form" method="get">
+        Course: <input type="text" name="course" value="{{ course_filter }}">
+        Level: <input type="text" name="level" value="{{ level_filter }}">
+        <button type="submit">Filter</button>
+        <a href="/admin/export_horizontal_scores">Download Excel</a>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Level</th>
+                {% for subject in subjects %}
+                <th>{{ subject }}</th>
+                {% endfor %}
+                <th>Total Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in student_rows %}
+            <tr>
+                <td>{{ student['Name'] }}</td>
+                <td>{{ student['Course'] }}</td>
+                <td>{{ student['Level'] }}</td>
+                {% for subject in subjects %}
+                <td>{{ student[subject] }}</td>
+                {% endfor %}
+                <td>{{ student['Total Score'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

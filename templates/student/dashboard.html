@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    padding: 20px;
+  }
+
+  img {
+    display: block;
+    margin: 0 auto 20px;
+    max-height: 90px;
+  }
+
+  h2, h3 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 80%;
+    margin: 0 auto 30px auto;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  th, td {
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+
+  th {
+    background-color: #2c3e50;
+    color: white;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  ul li {
+    background: #ecf0f1;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  ul li a {
+    background-color: #2980b9;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s;
+  }
+
+  ul li a:hover {
+    background-color: #3498db;
+  }
+
+  p {
+    text-align: center;
+    color: #555;
+    margin-top: 10px;
+  }
+
+  .logout {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .logout a {
+    color: #e74c3c;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  .logout a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<img src="/static/img/logo.jpg" alt="Summit Technical College">
+
+<h2>Welcome {{ student.full_name }}</h2>
+
+<table>
+  <tr><th>KASNEB No</th><td>{{ student.kasneb_no }}</td></tr>
+  <tr><th>Course</th><td>{{ student.course }}</td></tr>
+  <tr><th>Level</th><td>{{ student.level }}</td></tr>
+</table>
+
+<h3>Your Scores</h3>
+{% if subject_scores %}
+<table>
+  <thead>
+    <tr><th>Subject</th><th>Score</th></tr>
+  </thead>
+  <tbody>
+    {% for subject, score in subject_scores.items() %}
+      <tr><td>{{ subject }}</td><td>{{ score }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>You haven't taken any exams yet.</p>
+{% endif %}
+
+<h3>Available Quizzes</h3>
+{% if pending_quizzes %}
+<ul>
+  {% for quiz in pending_quizzes %}
+    <li>
+      {{ quiz.subject }}
+      <a href="{{ url_for('start_quiz', quiz_id=quiz.id) }}">Start Quiz</a>
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No available quizzes.</p>
+{% endif %}
+
+<div class="logout">
+  <a href="/logout">🚪 Logout</a>
+</div>
+{% endblock %}
