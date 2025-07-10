@@ -65,7 +65,7 @@ def register():
         if existing_user:
             db.close()
             error = "Username already exists!"
-            return render_template('student/register.html', error=error)
+            return render_template('register.html', error=error)
 
         new_user = User(username=username, password=password, role='student')
         db.add(new_user)
@@ -73,7 +73,7 @@ def register():
         db.close()
         return redirect('/login')
 
-    return render_template('student/register.html', error=error)
+    return render_template('register.html', error=error)
 
 
 
