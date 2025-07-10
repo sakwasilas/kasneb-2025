@@ -53,7 +53,7 @@ def login():
     return render_template('login.html', error=error)
 
     'student self registartion'
-    @app.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     error = None
     if request.method == 'POST':
