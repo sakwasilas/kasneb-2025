@@ -2,8 +2,10 @@ services:
   - type: web
     name: kasneb-quiz-system
     runtime: python
-    buildCommand: ""
-    startCommand: python app.py
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:10000
     envVars:
       - key: FLASK_ENV
         value: production
+      - key: DATABASE_URL
+        value: postgresql://kasneb_db_user:iCI8upaaADGRWzhd3cWpY7J6N7Jk2Kvk@dpg-d1nnn6jipnbc73at58ag-a/kasneb_db
