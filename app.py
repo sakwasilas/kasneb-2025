@@ -61,21 +61,19 @@ def register():
         password = request.form['password']
 
         db = SessionLocal()
-        # Check if username already exists
         existing_user = db.query(User).filter_by(username=username).first()
         if existing_user:
             db.close()
             error = "Username already exists!"
-            return render_template('register.html', error=error)
+            return render_template('student/register.html', error=error)
 
-        # Create the user
         new_user = User(username=username, password=password, role='student')
         db.add(new_user)
         db.commit()
         db.close()
-        return redirect('/login')  # redirect to login after successful registration
+        return redirect('/login')
 
-    return render_template('register.html', error=error)
+    return render_template('student/register.html', error=error)
 
 
 
